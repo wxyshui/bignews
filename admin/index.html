@@ -85,7 +85,15 @@
 
                 $(".user_center_link>img").attr("src",res.data.userPic);
                 
-            }
+            },
+            // 请求失败的回调函数
+            error: function (r) {
+                console.log(r);
+                if (r.statusText==="Forbidden") {
+                    alert("滚犊子");
+                    window.location.href = "login.html"
+                } 
+            },
         });
     </script>
 </body>

@@ -91,6 +91,24 @@
                 
             }
         });
+
+
+        // 选择文件  -------------------------------------------------------- 图片可以预览
+
+        // 上传控件注册change事件
+        $("#exampleInputFile").change(function () {
+            // 找到文件对象 
+            var a = this.files[0];
+            // 为文件创建一个临时的url  该url用于访问图像
+
+            var url = URL.createObjectURL(a); //URL为js内置对象  
+
+
+            // 改变图像路径为 url
+            $(".user_pic").attr("src",url)
+        })
+
+
      })
     
     </script>

@@ -63,6 +63,11 @@
             $(".level01").eq(1).click(function () {
                 $(this).next(".level02").slideToggle();
             })
+
+            // 实现鼠标点击高亮 兄弟移除
+            $(".level01").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+            })
          })
     
     </script>

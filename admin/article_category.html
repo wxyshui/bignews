@@ -91,14 +91,14 @@
             <td>{{ $value.slug }}</td>
             <td class="text-center">
                 <a href="javascript:void(0);" data-toggle="modal" class=" btn btn-info btn-xs">编辑</a>
-                <a href="javascript:void(0);" class="btn btn-danger btn-xs" data-id={{ $value.id }}>删除</a>
+                <a href="javascript:void(0);" class="btn btn-danger btn-xs btn-del" data-id={{ $value.id }}>删除</a>
             </td>
         </tr>
 
     {{/each}}
     </script>
     <script>
-
+        // 入口函数
         $(function () {
             // 文章列表渲染功能
             function loaddata() {
@@ -113,6 +113,7 @@
                     }
                 });
             }
+            // 列表渲染
             loaddata();
             // 列表新增功能
             $(".btn-primary").click(function () {
@@ -131,13 +132,43 @@
                             $("#myModal").modal("hide");
                             loaddata();
                         }
-
                     }
                 });
             })
 
+            // 文章类别的删除功能
+            $("tbody").on("click", ".btn-del", function () {
+                if (confirm("您真的要执行此操作吗")) {
+                    var id = $(this).attr("data-id");
+                    $.ajax({
+                        type: "post",
+                        url: BigNew.category_delete,
+                        data: {
+                            id: id
+                        },
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.code === 204) {
+
+                                // alert(res.msg)
+                                loaddata()
+                            }
+
+                        }
+                    });
+                }
+
+            })
+
+
+
 
         })
+
+
+
+
+
 
 
 

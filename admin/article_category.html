@@ -94,7 +94,6 @@
                 <a href="javascript:void(0);" class="btn btn-danger btn-xs btn-del" data-id={{ $value.id }}>删除</a>
             </td>
         </tr>
-
     {{/each}}
     </script>
     <script>
@@ -106,12 +105,12 @@
                     url: BigNew.category_list,
                     success: function (res) {
                         // console.log(res);
-
                         var tr = template("a", res)
-
                         $("tbody").html(tr);
                     }
                 });
+                $("#exampleInputEmail1").val("");
+                $("#exampleInputPassword1").val("");
             }
             // 列表渲染
             loaddata();
@@ -132,7 +131,12 @@
                             $("#myModal").modal("hide");
                             loaddata();
                         }
-                    }
+                    },
+                    error:function (r) { 
+                        if (r.status == 400) {
+                            alert("输入内容重复，请重新添加")
+                        }
+                     }
                 });
             })
 

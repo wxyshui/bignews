@@ -71,74 +71,68 @@
 
 
     <script>
-    $(function () { 
-        // 获取用户详情
-        $.ajax({
-           
-            url: "http://localhost:8080/api/v1/admin/user/detail",
-            headers: {
-                // 请求头中使用 `Authorization` 字段提供 `token` 令牌
-                Authorization:window.sessionStorage.getItem("key")
-            },
-            
-            success: function (res) {
-                // console.log(res);
-                $("#inputEmail1").val(res.data.username);
-                $("#inputEmail2").val(res.data.nickname);
-                $("#inputEmail3").val(res.data.email);
-                $(".user_pic").attr("src",res.data.userPic);
-                $("#inputEmail4").val(res.data.password);
-                
-            }
-        });
+        $(function () {
 
+            // 获取用户详情
+            $.ajax({
 
-        // 选择文件  -------------------------------------------------------- 图片可以预览
+                url: "http://localhost:8080/api/v1/admin/user/detail",
 
-        // 上传控件注册change事件
-        $("#exampleInputFile").change(function () {
-            // 找到文件对象 
-            var a = this.files[0];
-            // 为文件创建一个临时的url  该url用于访问图像
-
-            var url = URL.createObjectURL(a); //URL为js内置对象  
-
-
-            // 改变图像路径为 url
-            $(".user_pic").attr("src",url)
-        })
-
-        // 修改用户信息
-        $(".btn-edit").click(function (e) {
-            e.preventDefault();
-            // 收集表单各项数据
-            var fm = $("#form")[0]; //找到表单  并转成DOM对象
-
-            var formdata = new FormData(fm);
-
-
-           $.ajax({
-               type: "POST",
-               url: "http://localhost:8080/api/v1/admin/user/edit",
-               headers:{
-                   Authorization:window.sessionStorage.getItem("key")
-               },
-               data:formdata,
-                contentType:false,//表示不设置请求头中的 content-type。
-                processData:false,// 表示不需要将formdata转成字符串
                 success: function (res) {
-                   console.log(res);
-                   if (res.code === 200) {
-                       alert("修改成功")
-                   }else{
-                       alert("修改失败")
-                   }
-                   
-               }
-           });
+                    // console.log(res);
+                    $("#inputEmail1").val(res.data.username);
+                    $("#inputEmail2").val(res.data.nickname);
+                    $("#inputEmail3").val(res.data.email);
+                    $(".user_pic").attr("src", res.data.userPic);
+                    $("#inputEmail4").val(res.data.password);
+
+                }
+            });
+
+
+            // 选择文件  -------------------------------------------------------- 图片可以预览
+
+            // 上传控件注册change事件
+            $("#exampleInputFile").change(function () {
+                // 找到文件对象 
+                var a = this.files[0];
+                // 为文件创建一个临时的url  该url用于访问图像
+
+                var url = URL.createObjectURL(a); //URL为js内置对象  
+
+
+                // 改变图像路径为 url
+                $(".user_pic").attr("src", url)
+            })
+
+            // 修改用户信息
+            $(".btn-edit").click(function (e) {
+                e.preventDefault();
+                // 收集表单各项数据
+                var fm = $("#form")[0]; //找到表单  并转成DOM对象
+
+                var formdata = new FormData(fm);
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/api/v1/admin/user/edit",
+                    data: formdata,
+                    contentType: false,//表示不设置请求头中的 content-type。
+                    processData: false,// 表示不需要将formdata转成字符串
+                    success: function (res) {
+                        console.log(res);
+                        if (res.code === 200) {
+                            alert("修改成功")
+                        } else {
+                            alert("修改失败")
+                        }
+
+                    }
+                });
+            })
         })
-     })
-    
+
     </script>
 </body>
 
